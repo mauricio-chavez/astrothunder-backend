@@ -1,7 +1,7 @@
 const dialogflow = require('@google-cloud/dialogflow');
 
 async function detectIntent(query, contexts, sessionId) {
-  const projectId = process.env.GOOGLE_PROJECT_ID;
+  const projectId = process.env.GOOGLE_CLOUD_PROJECT;
   const sessionClient = new dialogflow.SessionsClient();
 
   const sessionPath = sessionClient.projectAgentSessionPath(
