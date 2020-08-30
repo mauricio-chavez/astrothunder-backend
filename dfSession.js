@@ -44,18 +44,25 @@ async function executeQuery(query, context, socketId) {
 async function dialogflowSession(socket, io) {
   let context;
   socket.on('chat message', async msg => {
-    const [fulfillmentText, newContext] = await executeQuery(
-      msg,
-      context,
-      socket.id
-    );
-    if (fulfillmentText) {
-      context = newContext;
-      io.to(socket.id).emit('chat message', fulfillmentText);
+    if (msg) {
+      const [fulfillmentText, newContext] = await executeQuery(
+        msg,
+        context,
+        socket.id
+      );
+      if (fulfillmentText) {
+        context = newContext;
+        io.to(socket.id).emit('chat message', fulfillmentText);
+      } else {
+        io.to(socket.id).emit(
+          'chat message',
+          'Estoy teniendo algunas complaciones, háblame de nuevo más tarde :P'
+        );
+      }
     } else {
       io.to(socket.id).emit(
         'chat message',
-        'Estoy teniendo algunas complaciones, háblame de nuevo más tarde :P'
+        'Interpretaré tu silencio como algo bueno :)'
       );
     }
   });
