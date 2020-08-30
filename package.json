@@ -17,5 +17,6 @@
     "start": "node app",
     "start:dev": "dotenv nodemon app",
     "deploy": "gcloud app deploy"
-  }
+  },
+  "license": "MIT"
 }
